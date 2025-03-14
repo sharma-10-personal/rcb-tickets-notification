@@ -1,5 +1,5 @@
 import puppeteer from 'puppeteer';
-const iftttWebhook='' // add ur webhook url from IFTTT
+const iftttWebhook='https://maker.ifttt.com/trigger/ssss/with/key/j2YebcTebY8omBDe7s5aS86rALH1-82hyCKIDRi1Y_L' // add ur webhook url from IFTTT
 
 async function fetchButtonTexts(url) {
     try {
@@ -24,8 +24,11 @@ async function fetchButtonTexts(url) {
         const searchText = 'BUY TICKETS';
         const count = buttonTexts.filter(text => text.toUpperCase() === searchText).length;
 
-        console.log(`🔍 Count of "${searchText}": ${count}`);
-        if (count > 1) {
+        const searchTextNot = "COMING SOON"
+        const countofcomSoon = buttonTexts.filter(text => text.toUpperCase() === searchTextNot).length;
+
+        console.log(`🔍 Count of "${searchText}": ${count} and count of COMING SOON tickets ${countofcomSoon}`);
+        if (count > 0 || countofcomSoon != 7) {
             console.log('🚨 BUY TICKETS found more than once. Sending alert via IFTTT...');
             await fetch(iftttWebhook);
         }
